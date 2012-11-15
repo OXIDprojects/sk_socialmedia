@@ -220,7 +220,7 @@ class sk_socialmedia_cron extends oxAdminDetails {
 							array_push($messages, 'Article ' . $oArticle->oxarticles__oxtitle->value . ' was published.');
 						}
 					}
-					$sql = 'UPDATE oxarticles SET fbpublished = 1 WHERE oxid LIKE "' . $soxId ."'";
+					$sql = 'UPDATE oxarticles SET fbpublished = 1 WHERE oxid LIKE "' . $soxId .'"';
 					array_push($messages, $sql);
 					$oDB->execute($sql);
 				}
