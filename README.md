@@ -17,28 +17,12 @@ keine Gewerbliche Seite fuer Modulvertrieb vorhanden, aber unser Shop ist unter 
 knornschild@sitzdesign.de
 
 /**** Beschreibung ****/
-Modul um neue Artikel automatisch auf Facebook in einer eingestellten Gruppe oder der Firmenseite zu posten.
+Modul um neue Artikel automatisch auf Facebook in einer eingestellten Gruppe oder der Firmenseite zu posten und zu twittern.
 Twitter ist noch geplant
 
 /**** Beschreibung ****/
 1.	alles aus dem ordner copy_this in den Shop root hochladen
-2.	in die config.inc.php am Ende dies hinzufuegen:
-	/* sk_socialmedia Settings Start */
-	$this->groupId = null;
-
-	$this->pageId = "<ID eurer Facebook page>";
-	// webUrl is only needed if u want to post with another domain than the default shopdomain
-	$this->webUrl = null;
-	
-	// To get this code paste this url to the browser
-	// https://graph.facebook.com/oauth/authorize?client_id=<APP_ID>&scope=email,publish_stream,offline_access,manage_pages&redirect_uri=<$this->webUrl>&display=popup
-	$this->authCode = "";
-	
-	$this->categoryId = null;
-	
-	$this->descLength = "300";
-	/* sk_socialmedia Settings End */
-	
+2.	In den Moduleinstellungen die benötigten Einträge vornehmen
 3.	einen cronjob einrichten der autmatisch die cron.php im ordner <shopdir>/modules/sk_socialmedia/cron.php ausfuehrt.
 	z.B. so:
 	*/10       *       *       *       *       /var/www/vhosts/<shopdomain>/modules/sk_socialmedia/cron.php
