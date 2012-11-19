@@ -21,7 +21,6 @@
  * @version OXID eShop CE
  * @version   SVN: $Id: theme.php 25466 2010-02-01 14:12:07Z alfonsas $
  *
- * @copyright Tr0nYx 2012, knornschild@sitzdesign.de
  */
 class sk_socialmedia extends oxAdminDetails {
 
@@ -61,6 +60,9 @@ class sk_socialmedia extends oxAdminDetails {
         // checkbox handling
         if ( !isset( $aParams['oxarticles__fbpublished'])) {
             $aParams['oxarticles__fbpublished'] = 0;
+        }
+		if ( !isset( $aParams['oxarticles__tweetpublished'])) {
+            $aParams['oxarticles__tweetpublished'] = 0;
         }
         if ( !isset( $aParams['oxarticles__smdontpublish'])) {
             $aParams['oxarticles__smdontpublish'] = 1;
