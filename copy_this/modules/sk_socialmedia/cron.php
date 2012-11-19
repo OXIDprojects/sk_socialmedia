@@ -57,6 +57,16 @@ class sk_socialmedia_cron extends oxAdminDetails {
 	
 	protected $soxId = null;
 	
+	protected $useKeywordsAsHashTags = null;
+	
+	protected $consumer_key	= null;
+	
+	protected $consumer_secret = null;
+	
+	protected $user_token = null;
+	
+	protected $user_secret = null;
+	
 	public function render(){
 		if (!function_exists('curl_init')){
 			die('Sorry cURL is not installed!');
@@ -65,14 +75,19 @@ class sk_socialmedia_cron extends oxAdminDetails {
 		$oDB = oxDb::getDB(true);
 		$this->_aViewData['edit'] = $oArticle = oxNew( 'oxarticle' );
 		$myConfig  = $this->getConfig();
-		$this->AppId = $myConfig->getConfigParam( "sFbAppId" );
-		$this->AppSecret = $myConfig->getConfigParam( "sFbSecretKey" );
-		$this->webUrl = $myConfig->getConfigParam( "webUrl");
-		$this->authCode = $myConfig->getConfigParam( "authCode");
-		$this->pageId = $myConfig->getConfigParam( "pageId");
-		$this->groupId = $myConfig->getConfigParam( "groupId");
-		$this->categoryId = $myConfig->getConfigParam( "categoryId");
-		$this->descLength = $myConfig->getConfigParam( "descLength");
+		$this->AppId 					= $myConfig->getConfigParam( "sFbAppId" );
+		$this->AppSecret				= $myConfig->getConfigParam( "sFbSecretKey" );
+		$this->webUrl					= $myConfig->getConfigParam( "webUrl");
+		$this->authCode					= $myConfig->getConfigParam( "authCode");
+		$this->pageId					= $myConfig->getConfigParam( "pageId");
+		$this->groupId					= $myConfig->getConfigParam( "groupId");
+		$this->categoryId				= $myConfig->getConfigParam( "categoryId");
+		$this->descLength				= $myConfig->getConfigParam( "descLength");
+		$this->useKeywordsAsHashTags	= $myConfig->getConfigParam( "useKeywordsAsHashTags");
+		$this->consumer_key				= $myConfig->getConfigParam( "consumer_key");
+		$this->consumer_secret			= $myConfig->getConfigParam( "consumer_secret");
+		$this->user_token				= $myConfig->getConfigParam( "user_token");
+		$this->user_secret				= $myConfig->getConfigParam( "user_secret");
 				
 		if ($this->webUrl) {
 			preg_match('@^(?:http://)?([^/]+)@i', $this->webUrl, $matches);
@@ -86,7 +101,14 @@ class sk_socialmedia_cron extends oxAdminDetails {
 		// Select all news which not yet publish to facebook and post them to
 		// the wall of the group page and fan page
 		$inCat = '';
-		$where = 'WHERE (fbpublished = 0 OR tweetpublished = 0) AND smdontpublish = 0 AND oxactive = 1';
+		$where = "WHERE (";
+		if ($this->authCode != "")
+			$where .= "fbpublished = 0";
+		if ($this->authCode && $this->consumer_secret && $this->user_secret)
+			$where .= " OR ";
+		if ($this->consumer_secret && $this->user_secret)
+			$where .= " tweetpublished = 0";
+		$where .= ") AND smdontpublish = 0 AND oxactive = 1";
 		$sSelect = 'SELECT * FROM oxarticles '.$where;
 		
 			// Get and validate the list of selected news categories
@@ -126,10 +148,10 @@ class sk_socialmedia_cron extends oxAdminDetails {
 						$this->_aViewData["parentarticle"] = $oParentArticle;
 						$this->_aViewData["oxparentid"]    = $oArticle->oxarticles__oxparentid->value;
 					}
-					if ($oArticle->oxarticles__fbpublished->value == '0')
+					if ($oArticle->oxarticles__fbpublished->value == '0' && $this->authCode != "")
 						$this->post2facebook($oArticle);
 					
-					if ($oArticle->oxarticles__tweetpublished->value == '0')
+					if ($oArticle->oxarticles__tweetpublished->value == '0' && $this->consumer_secret != "" && $this->user_secret != "")
 						$this->tweet($oArticle);
 				}
 				$rs->moveNext();
@@ -261,7 +283,7 @@ class sk_socialmedia_cron extends oxAdminDetails {
 		$msg = str_replace(array('<','>','&'), array(' ',' ',' and '), $msg);
 		$msg = $this->isUTF8($msg) ? $msg : utf8_encode($msg);
 		$msg = (strlen($msg)+$urlLen > 117) ? substr($msg, 0, 117-$urlLen).'...': $msg;
-		if ($myConfig->getConfigParam( "useKeywordsAsHashTags")) {
+		if ($this->useKeywordsAsHashTags) {
 			$keywords = $oArticle->oxarticles__oxsearchkeys->value;
 			if ($keywords) {
 				$keywords = $this->isUTF8($keywords) ? $keywords : utf8_encode($keywords);
@@ -289,7 +311,7 @@ class sk_socialmedia_cron extends oxAdminDetails {
 			$this->writetolog("Errorcode: ".$httpcode." Something went wrong, and the tweet ".$oArticle->oxarticles__oxtitle->value." wasn't posted correctly.");
 		}
 		else {
-			$sql = 'UPDATE oxarticles SET tweetpublished = 1 WHERE oxid LIKE "' . $oArticle->oxarticles__oxid->value .'"';
+			$sql = 'UPDATE oxarticles SET tweetpublished = 1 WHERE oxid LIKE "' . $this->soxId .'"';
 			$oDB->execute($sql);
 		}
 	}
@@ -308,10 +330,10 @@ class sk_socialmedia_cron extends oxAdminDetails {
 		// The values here have asterisks to hide the true contents 
 		// You need to use the actual values from Twitter
 		$connection = new tmhOAuth(array(
-		'consumer_key' => $myConfig->getConfigParam( "consumer_key"),
-		'consumer_secret' => $myConfig->getConfigParam( "consumer_secret"),
-		'user_token' => $myConfig->getConfigParam( "user_token"),
-		'user_secret' => $myConfig->getConfigParam( "user_secret"),
+		'consumer_key' => $this->consumer_key,
+		'consumer_secret' => $this->consumer_secret,
+		'user_token' => $this->user_token,
+		'user_secret' => $this->user_secret,
 		)); 
 
 		// Make the API call
