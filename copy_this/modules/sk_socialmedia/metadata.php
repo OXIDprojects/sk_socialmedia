@@ -29,11 +29,24 @@ $aModule = array(
     'id'           => 'sk_socialmedia',
 	'title'        => 'Post 2 Social Media Pages',
 	'description'  => 'Post new Articles 2 Social Media Pages',
-    'version'      => '1.0',
-    'author'       => 'Steve Knornschild',
+    'version'      => '1.1',
+    'author'       => 'sitzdesign.de',
     'extend'       => array(
     ),
 	'files' => array(
         'sk_socialmedia'                        => 'admin/sk_socialmedia.php',
     ),
+	'settings' => array(
+		array('group' => 'socialmedia', 'name' => 'webUrl', 'type' => 'str',  'value' => ''),
+		array('group' => 'socialmedia', 'name' => 'categoryId', 'type' => 'str',  'value' => ''),
+		array('group' => 'socialmedia', 'name' => 'descLength', 'type' => 'str',  'value' => '300'),
+		array('group' => 'facebook', 'name' => 'authCode', 'type' => 'str',  'value' => 'AQCctW9bU7LLlEvaiRLpkkFYCtJtd4yKRuscWuFGkgRqGdd2JIG7hXGXAurkvhYWJgMowdybpq6IlzpdU8LYAbOUcyUDkARhjgBRvmhoPtRxd6CaT__n2vrXfzL3Z05JT7kqjP3bgDdgCnWemO0buxZUKInrUobyrHXakFcAPsqU13V57cxfKFxGIC0nEBi1k6-_96A83Tjagb5oE7qvgLDc#_=_'),
+		array('group' => 'facebook', 'name' => 'groupId', 'type' => 'str',  'value' => ''),
+		array('group' => 'facebook', 'name' => 'pageId', 'type' => 'str',  'value' => '177909988901805'),
+		array('group' => 'twitter', 'name' => 'consumer_key', 'type' => 'str',  'value' => ''),
+		array('group' => 'twitter', 'name' => 'consumer_secret', 'type' => 'str',  'value' => ''),
+		array('group' => 'twitter', 'name' => 'user_token', 'type' => 'str',  'value' => ''),
+		array('group' => 'twitter', 'name' => 'user_secret', 'type' => 'str',  'value' => ''),
+		array('group' => 'twitter', 'name' => 'useKeywordsAsHashTags', 'type' => 'bool',  'value' => true),
+    )
 );
