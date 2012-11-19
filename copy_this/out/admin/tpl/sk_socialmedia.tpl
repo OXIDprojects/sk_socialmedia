@@ -86,6 +86,16 @@ function processUnitInput( oSelect, sInputId )
 			</tr>
 			<tr>
 				<td class="edittext" width="140">
+					[{ oxmultilang ident="ARTICLE_EXTEND_TWEET" }]
+				</td>
+				<td class="edittext">
+					<input type="hidden" name="editval[oxarticles__tweetpublished]" value='0'>
+					<input class="edittext" type="checkbox" name="editval[oxarticles__tweetpublished]" value='1' [{if $edit->oxarticles__tweetpublished->value == 1}]checked[{/if}]>
+					[{ oxinputhelp ident="HELP_ARTICLE_EXTEND_TWEET" }]
+				</td>
+			</tr>
+			<tr>
+				<td class="edittext" width="140">
 					[{ oxmultilang ident="ARTICLE_EXTEND_DONTPUBLISHFB" }]
 				</td>
 				<td class="edittext">
