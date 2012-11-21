@@ -26,8 +26,7 @@ Twitter ist noch geplant
 3.	einen cronjob einrichten der autmatisch die cron.php im ordner <shopdir>/modules/sk_socialmedia/cron.php ausfuehrt.
 	z.B. so:
 	*/10       *       *       *       *       /var/www/vhosts/<shopdomain>/modules/sk_socialmedia/cron.php
-4.	Unter Service->Tools->SQL Update dies ausfuehren:
-	ALTER TABLE oxarticles add column fbpublished tinyint(3) DEFAULT '0' NOT NULL, add column smdontpublish tinyint(3) DEFAULT '1' NOT NULL
+4.	Unter Service->Tools->SQL Update die alter.sql ausführen
 5.	Modul unter Einstellungen->Module das Modul aktivieren, tmp leeren und views aktualisieren
 6.	nun kann in den Artikeldetails im neuen Tab Social Media eingestellt werden ob dieser Artikel auf facebook gepostet werden soll
 
