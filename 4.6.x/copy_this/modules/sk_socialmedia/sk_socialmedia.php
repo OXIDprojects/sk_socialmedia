@@ -23,14 +23,14 @@
  *
  */
 class sk_socialmedia extends sk_socialmedia_parent {
-
-	protected $_sThisTemplate = "sk_socialmedia.tpl";
-
-	public function render(){
-		parent::render();
-		$this->_aViewData['edit'] = $oArticle = oxNew( 'oxarticle' );
-		$soxId = $this->getEditObjectId();
-		// all categories
+    
+    protected $_sThisTemplate = "sk_socialmedia.tpl";
+    
+    public function render(){
+        parent::render();
+        $this->_aViewData['edit'] = $oArticle = oxNew( 'oxarticle' );
+        $soxId = $this->getEditObjectId();
+        // all categories
         if ( $soxId != "-1" && isset( $soxId ) ) {
             // load object
             $oArticle->loadInLang( $this->_iEditLang, $soxId );
@@ -43,10 +43,10 @@ class sk_socialmedia extends sk_socialmedia_parent {
                 $oArticle->loadInLang( key($oOtherLang), $soxId );
             }
         }
-		return $this->_sThisTemplate;
-	}
-	
-	/**
+        return $this->_sThisTemplate;
+    }
+    
+    /**
      * Saves modified extended article parameters.
      *
      * @return mixed
@@ -61,7 +61,7 @@ class sk_socialmedia extends sk_socialmedia_parent {
         if ( !isset( $aParams['oxarticles__fbpublished'])) {
             $aParams['oxarticles__fbpublished'] = 0;
         }
-		if ( !isset( $aParams['oxarticles__tweetpublished'])) {
+        if ( !isset( $aParams['oxarticles__tweetpublished'])) {
             $aParams['oxarticles__tweetpublished'] = 0;
         }
         if ( !isset( $aParams['oxarticles__smdontpublish'])) {
