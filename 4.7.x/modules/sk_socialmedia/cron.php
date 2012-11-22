@@ -175,7 +175,7 @@ class sk_socialmedia_cron extends oxAdminDetails {
         
         // Get string responsed by Facebook 
         $url = 'https://graph.facebook.com/oauth/access_token?client_id='. $this->AppId 
-             . '&redirect_uri=' . $host . '&client_secret=' . $this->AppSecret
+             . '&redirect_uri=' . $this->host . '&client_secret=' . $this->AppSecret
              . '&code=' . $this->authCode;
          
         $ch = curl_init();
