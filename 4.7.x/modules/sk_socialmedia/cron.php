@@ -158,6 +158,15 @@ class sk_socialmedia_cron extends oxAdminDetails {
         return $this->_sThisTemplate;
     }
     
+    protected function getSeoUrl($result)
+    {
+        $sSeoTable = getViewName('oxseo');
+        $sSelect = "select OXSEOURL from $sSeoTable where oxobjectid = '$result'";
+        $sSeo = oxDb::getDb(false)->getOne( $sSelect);
+        $link = $this->host.'/'.$sSeo;
+        return $link;
+    }
+    
     protected function post2facebook($oArticle)
     {
         require($this->getConfig()->getModulesDir()."sk_socialmedia/lib/facebook/facebook.php");
@@ -225,7 +234,7 @@ class sk_socialmedia_cron extends oxAdminDetails {
             // Merge group with normal page - because it uses the same access_token
             $groupList = array_merge($groupList, $pageList);
         }
-        $artLink = $oArticle->getBaseStdLink( $this->_iEditLang, true);
+        $artLink = $this->getSeoUrl($oArticle->oxarticles__oxid->value);
 
         // Create attachment to post to FB by Graph API
         $attachment = array(
@@ -234,6 +243,7 @@ class sk_socialmedia_cron extends oxAdminDetails {
                 'name' => $oArticle->oxarticles__oxtitle->value,
         );
         
+
         // If the description length is set , it will show the description text in post
         if(intval($this->descLength) > 0) {
             $desc = strip_tags($oArticle->oxarticles__oxshortdesc->value ? $oArticle->oxarticles__oxshortdesc->value : $oArticle->oxarticles__oxlongdesc->value);
@@ -273,7 +283,8 @@ class sk_socialmedia_cron extends oxAdminDetails {
     }
     
     protected function tweet($oArticle){
-        $artLink = $oArticle->getBaseStdLink( $this->_iEditLang, true);
+        //$artLink = $oArticle->getBaseStdLink( $this->_iEditLang, true);
+        $artLink = $this->getSeoUrl($oArticle->oxarticles__oxid->value);
         $singleUrl = $this->createShortUrl($artLink);
         $myConfig  = $this->getConfig();
         $urlLen = strlen($artLink);
