@@ -27,29 +27,29 @@
  */
 $aModule = array(
     'id'           => 'sk_socialmedia',
-	'title'        => 'Post 2 Social Media Pages',
-	'description'  => 'Post new Articles 2 Social Media Pages',
-    'version'      => '1.2',
+    'title'        => 'Post 2 Social Media Pages',
+    'description'  => 'Post new Articles 2 Social Media Pages',
+    'version'      => '1.2.1',
     'author'       => 'sitzdesign.de',
     'extend'       => array(
-		'oxadmindetails'	=> 'sk_socialmedia/sk_socialmedia',
+        'oxadmindetails'	=> 'sk_socialmedia/sk_socialmedia',
     ),
-	'files' => array(
+    'files' => array(
     ),
-	'settings' => array(
-		array('group' => 'socialmedia', 'name' => 'webUrl', 'type' => 'str',  'value' => ''),
-		array('group' => 'socialmedia', 'name' => 'categoryId', 'type' => 'str',  'value' => ''),
-		array('group' => 'socialmedia', 'name' => 'descLength', 'type' => 'str',  'value' => '300'),
-		array('group' => 'facebook', 'name' => 'authCode', 'type' => 'str',  'value' => ''),
-		array('group' => 'facebook', 'name' => 'groupId', 'type' => 'str',  'value' => ''),
-		array('group' => 'facebook', 'name' => 'pageId', 'type' => 'str',  'value' => ''),
-		array('group' => 'twitter', 'name' => 'consumer_key', 'type' => 'str',  'value' => ''),
-		array('group' => 'twitter', 'name' => 'consumer_secret', 'type' => 'str',  'value' => ''),
-		array('group' => 'twitter', 'name' => 'user_token', 'type' => 'str',  'value' => ''),
-		array('group' => 'twitter', 'name' => 'user_secret', 'type' => 'str',  'value' => ''),
-		array('group' => 'twitter', 'name' => 'useKeywordsAsHashTags', 'type' => 'bool',  'value' => true),
+    'settings' => array(
+        array('group' => 'socialmedia', 'name' => 'webUrl', 'type' => 'str',  'value' => ''),
+        array('group' => 'socialmedia', 'name' => 'categoryId', 'type' => 'str',  'value' => ''),
+        array('group' => 'socialmedia', 'name' => 'descLength', 'type' => 'str',  'value' => '300'),
+        array('group' => 'facebook', 'name' => 'authCode', 'type' => 'str',  'value' => ''),
+        array('group' => 'facebook', 'name' => 'groupId', 'type' => 'str',  'value' => ''),
+        array('group' => 'facebook', 'name' => 'pageId', 'type' => 'str',  'value' => ''),
+        array('group' => 'twitter', 'name' => 'consumer_key', 'type' => 'str',  'value' => ''),
+        array('group' => 'twitter', 'name' => 'consumer_secret', 'type' => 'str',  'value' => ''),
+        array('group' => 'twitter', 'name' => 'user_token', 'type' => 'str',  'value' => ''),
+        array('group' => 'twitter', 'name' => 'user_secret', 'type' => 'str',  'value' => ''),
+        array('group' => 'twitter', 'name' => 'useKeywordsAsHashTags', 'type' => 'bool',  'value' => true),
     ),
-	'templates' => array(
+    'templates' => array(
         'sk_socialmedia.tpl' => 'sk_socialmedia/sk_socialmedia.tpl',
     ),
 );
